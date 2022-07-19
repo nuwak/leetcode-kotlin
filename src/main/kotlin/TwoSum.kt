@@ -1,6 +1,4 @@
-package twoSum
-
-class Solution {
+class TwoSum {
     fun twoSum(nums: IntArray, target: Int): IntArray {
         nums.indices.forEach { i1 ->
             for (i2 in nums.indices) {
