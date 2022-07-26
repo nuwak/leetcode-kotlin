@@ -1,5 +1,3 @@
-import kotlin.math.absoluteValue
-
 /**
  * @see https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/
  */
