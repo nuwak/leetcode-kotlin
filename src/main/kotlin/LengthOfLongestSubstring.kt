@@ -1,22 +1,22 @@
+import kotlin.math.absoluteValue
+
 /**
  * @see https://leetcode.com/problems/longest-substring-without-repeating-characters/submissions/
  */
 class LengthOfLongestSubstring {
     fun solution(s: String): Int {
         val chars = mutableSetOf<Char>()
-        var counter = 1
         var maxLength = 0
         var p = 0
 
         while (p < s.length) {
             val ch = s[p]
             if (ch in chars) {
-                counter = 1
                 chars.clear()
                 chars.add(ch)
                 var bp = p - 1
                 while (bp >= 0) {
-                    if(s[bp] in chars){
+                    if (s[bp] in chars) {
                         p = bp + 1
                         chars.clear()
                         break
@@ -26,9 +26,8 @@ class LengthOfLongestSubstring {
                 continue
             } else {
                 chars.add(ch)
-                if (counter > maxLength)
-                    maxLength = counter
-                counter++
+                if (maxLength < chars.size)
+                    maxLength = chars.size
             }
 
             p++
@@ -37,35 +36,36 @@ class LengthOfLongestSubstring {
         return maxLength
     }
 
+    fun solution3(s: String): Int {
+        if (s.length < 2) return s.length
+        var (start, shift, max) = arrayOf(0, 2, 1)
 
-    fun solution2(s: String): Int {
-        var lp = 0
-        var rp = s.length - 1
-        var ldp = 0
-        var lPrevChar: Char? = null
-        var rPrevChar: Char? = null
-        var rdp = rp
-        var size = rp
+        while (s.length >= start + shift)
+            if (shift == s.substring(start, start + shift).toSet().size) {
+                max = shift
+                shift++
+            } else
+                start++
 
-        while (lp < rp) {
-            while (lp < rp) {
-                lp++
-                if (s[lp] == lPrevChar) {
-                    ldp = lp
-                    break
-                }
-            }
+        return max
+    }
 
-            while (lp < rp) {
-                rp--
-                if (s[rp] == rPrevChar) {
-                    rdp = rp
-                    break
-                }
-            }
+    fun solution4(s: String): Int {
+        if (s.length <= 1) return s.length
 
+        val seen = mutableMapOf<Char, Int>()
+        var left = 0
+        var longest = 0
+
+        for ((right, char) in s.withIndex()) {
+            val prevSeenChar = seen[char]
+            if (prevSeenChar != null && prevSeenChar >= left)
+                left = prevSeenChar + 1
+
+            seen[char] = right
+            longest = maxOf(longest, right - left + 1)
         }
 
-        TODO()
+        return longest
     }
 }

@@ -11,6 +11,19 @@ internal class LengthOfLongestSubstringTest {
         val res = LengthOfLongestSubstring().solution(s)
         assertEquals(e, res)
     }
+    @ParameterizedTest
+    @MethodSource("data")
+    fun solution3(s: String, e: Int) {
+        val res = LengthOfLongestSubstring().solution3(s)
+        assertEquals(e, res)
+    }
+
+    @ParameterizedTest
+    @MethodSource("data")
+    fun solution4(s: String, e: Int) {
+        val res = LengthOfLongestSubstring().solution4(s)
+        assertEquals(e, res)
+    }
 
     companion object {
         @JvmStatic
@@ -20,7 +33,6 @@ internal class LengthOfLongestSubstringTest {
             Arguments.of("pwwkew", 3),
             Arguments.of("aab", 2),
             Arguments.of("dvdf", 3),
-
         )
     }
 }
